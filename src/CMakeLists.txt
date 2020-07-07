@@ -11,5 +11,8 @@ add_library(renderer::renderer_shared ALIAS renderer_shared)
 target_include_directories(renderer PUBLIC ${RENDERER_INCLUDE_DIR})
 target_include_directories(renderer_shared PUBLIC ${RENDERER_INCLUDE_DIR})
 
+target_compile_definitions(renderer PRIVATE $<$<CONFIG:Debug>:R3D_DEBUG> $<$<CONFIG:Release>:R3D_RELEASE>)
+target_compile_definitions(renderer_shared PRIVATE $<$<CONFIG:Debug>:R3D_DEBUG> $<$<CONFIG:Release>:R3D_RELEASE>)
+
 target_link_libraries(renderer PRIVATE project::options project::warnings spdlog::spdlog)
 target_link_libraries(renderer_shared PRIVATE project::options project::warnings spdlog::spdlog)
