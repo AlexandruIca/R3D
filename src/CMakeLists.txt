@@ -14,5 +14,5 @@ target_include_directories(renderer_shared PUBLIC ${RENDERER_INCLUDE_DIR})
 target_compile_definitions(renderer PRIVATE $<$<CONFIG:Debug>:R3D_DEBUG> $<$<CONFIG:Release>:R3D_RELEASE>)
 target_compile_definitions(renderer_shared PRIVATE $<$<CONFIG:Debug>:R3D_DEBUG> $<$<CONFIG:Release>:R3D_RELEASE>)
 
-target_link_libraries(renderer PRIVATE project::options project::warnings spdlog::spdlog)
-target_link_libraries(renderer_shared PRIVATE project::options project::warnings spdlog::spdlog)
+target_link_libraries(renderer PRIVATE project::options project::warnings spdlog::spdlog SDL2::SDL2)
+target_link_libraries(renderer_shared PRIVATE project::options project::warnings spdlog::spdlog SDL2::SDL2)

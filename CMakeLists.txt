@@ -19,6 +19,8 @@ set_project_warnings(project_warnings)
 
 enable_sanitizers(project_options)
 
+find_package(SDL2 REQUIRED)
+
 # Not to be used directly by users, just storing the include directory that will be specified in:
 # `target_include_directories(ecs PUBLIC ${RENDERER_INCLUDE_DIR})`
 set(RENDERER_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
