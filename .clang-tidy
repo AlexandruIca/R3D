@@ -1,5 +1,5 @@
 ---
-Checks: '*,-fuchsia-*,-google-*,-zircon-*,-abseil-*,-llvm-*,-cppcoreguidelines-pro-bounds-*,-cppcoreguidelines-pro-type-*,-cert-err58-cpp'
+Checks: '*,-fuchsia-*,-google-*,-zircon-*,-abseil-*,-llvm-*,-cppcoreguidelines-pro-bounds-*,-cppcoreguidelines-pro-type-*,-cert-err58-cpp,-cppcoreguidelines-macro-usage'
 WarningsAsErrors: '1'
 HeaderFilterRegex: ''
 FormatStyle: none
