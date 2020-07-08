@@ -182,6 +182,22 @@ auto window::handle_events() -> void
 
             break;
         }
+        case SDL_WINDOWEVENT: {
+            switch(ev.window.event) {
+            case SDL_WINDOWEVENT_SIZE_CHANGED: {
+                m_width = ev.window.data1;
+                m_height = ev.window.data2;
+
+                LOG("Window resized to {}x{}!", m_width, m_height);
+
+                break;
+            }
+            default: {
+                break;
+            }
+            }
+            break;
+        }
         default: {
             break;
         }
