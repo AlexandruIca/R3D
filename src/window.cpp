@@ -187,4 +187,9 @@ auto window::handle_events() -> void
     }
 }
 
+auto window::get_sdl_window() noexcept -> SDL_Window*
+{
+    return m_window.get();
+}
+
 } // namespace r3d

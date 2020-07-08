@@ -48,6 +48,8 @@ public:
     {
         m_closed = true;
     }
+
+    [[nodiscard]] auto get_sdl_window() noexcept -> SDL_Window*;
 };
 
 } // namespace r3d
