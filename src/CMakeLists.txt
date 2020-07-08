@@ -1,6 +1,6 @@
 find_package(spdlog REQUIRED)
 
-set(RENDERER_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/renderer.cpp)
+set(RENDERER_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/renderer.cpp ${CMAKE_CURRENT_SOURCE_DIR}/window.cpp)
 
 add_library(renderer STATIC ${RENDERER_SOURCE_FILES})
 add_library(renderer_shared SHARED ${RENDERER_SOURCE_FILES})
