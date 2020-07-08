@@ -2,6 +2,7 @@
 #define R3D_LOG_HPP
 #pragma once
 
+#include <cstdlib>
 #include <spdlog/spdlog.h>
 
 #ifdef R3D_DEBUG
