@@ -25,6 +25,12 @@ auto renderer::update() noexcept -> void
     SDL_RenderPresent(m_renderer.get());
 }
 
+auto renderer::draw_point(int const x, int const y, color const c) -> void
+{
+    SDL_SetRenderDrawColor(m_renderer.get(), c.r, c.g, c.b, c.a);
+    SDL_RenderDrawPoint(m_renderer.get(), x, y);
+}
+
 auto test() -> void
 {
     LOG("Hello {}!", "there");

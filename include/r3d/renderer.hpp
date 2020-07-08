@@ -31,6 +31,8 @@ public:
 
     auto clear() noexcept -> void;
     auto update() noexcept -> void;
+
+    auto draw_point(int x, int y, color c) -> void;
 };
 
 auto test() -> void;
