@@ -1,5 +1,5 @@
-#ifndef LOG_HPP
-#define LOG_HPP
+#ifndef R3D_LOG_HPP
+#define R3D_LOG_HPP
 #pragma once
 
 #include <spdlog/spdlog.h>
@@ -10,4 +10,4 @@
 #define LOG(...) static_cast<void>(0)
 #endif
 
-#endif // !LOG_HPP
+#endif // !R3D_LOG_HPP
