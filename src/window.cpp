@@ -3,7 +3,7 @@
 #include <SDL.h>
 
 #include "r3d/event.hpp"
-#include "r3d/log.hpp"
+#include "r3d/impl/log.hpp"
 #include "r3d/window.hpp"
 
 namespace r3d {

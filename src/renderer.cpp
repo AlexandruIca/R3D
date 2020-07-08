@@ -1,6 +1,6 @@
 #include <SDL.h>
 
-#include "r3d/log.hpp"
+#include "r3d/impl/log.hpp"
 #include "r3d/renderer.hpp"
 
 namespace r3d {
