@@ -86,6 +86,8 @@ window::window(std::string const& title, int const w, int const h)
                     SDL_DestroyWindow(w);
                     SDL_Quit();
                 } }
+    , m_width{ w }
+    , m_height{ h }
     , m_closed{ false }
 {
     if(m_window == nullptr) {

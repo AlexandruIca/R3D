@@ -7,6 +7,9 @@ TEST_CASE("[Window]")
 {
     r3d::window wnd{};
 
+    auto const [w, h] = wnd.get_dimensions();
+    MESSAGE("Window dimensions: " << w << 'x' << h);
+
     wnd.set_event_handler([&wnd](r3d::event const& ev) -> void {
         switch(ev.type()) {
         case r3d::event_type::key_pressed: {

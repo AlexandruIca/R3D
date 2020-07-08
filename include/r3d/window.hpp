@@ -18,6 +18,8 @@ class window
 private:
     std::unique_ptr<SDL_Window, void (*)(SDL_Window*) noexcept> m_window;
     std::function<void(r3d::event const&)> m_event_handler;
+    int m_width;
+    int m_height;
     bool m_closed;
 
     static constexpr int m_default_width = 600;
@@ -50,6 +52,19 @@ public:
     }
 
     [[nodiscard]] auto get_sdl_window() noexcept -> SDL_Window*;
+
+    [[nodiscard]] inline auto get_width() const noexcept -> int
+    {
+        return m_width;
+    }
+    [[nodiscard]] inline auto get_height() const noexcept -> int
+    {
+        return m_height;
+    }
+    [[nodiscard]] inline auto get_dimensions() const noexcept -> std::pair<int, int>
+    {
+        return { m_width, m_height };
+    }
 };
 
 } // namespace r3d
