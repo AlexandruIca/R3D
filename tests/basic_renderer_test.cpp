@@ -59,9 +59,21 @@ TEST_CASE("[Renderer] Basic")
         }
     });
 
+    constexpr r3d::color c{ 255, 107, 128, 255 };
+    constexpr int center_offset = 10;
+
     while(!wnd.closed()) {
         wnd.handle_events();
         rnd.clear();
+
+        auto const [w, h] = wnd.get_dimensions();
+        auto const center_x = w / 2;
+        auto const center_y = h / 2;
+
+        for(int i = center_x - center_offset; i <= center_x + center_offset; ++i) {
+            rnd.draw_point(i, center_y, c);
+        }
+
         rnd.update();
     }
 }
