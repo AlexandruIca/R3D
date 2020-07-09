@@ -4,9 +4,11 @@
 
 #include <algorithm>
 #include <array>
+#include <cmath>
 #include <cstddef>
 #include <functional>
 #include <iostream>
+#include <numeric>
 #include <type_traits>
 
 #include "r3d/impl/assert.hpp"
@@ -138,6 +140,21 @@ public:
         ASSERT(index < N);
         return m_data[index];
     }
+
+    [[nodiscard]] auto length() const noexcept -> float
+    {
+        return std::sqrt(std::accumulate(
+            m_data.begin(), m_data.end(), T{ 0 }, [](T const sum, T const val) -> T { return sum + val * val; }));
+    }
+
+    auto normalize() noexcept -> void
+    {
+        float const len = this->length();
+
+        for(T& num : m_data) {
+            num /= len;
+        }
+    }
 };
 
 } // namespace impl
@@ -146,6 +163,34 @@ using vec2i = impl::vec<int, 2>;
 using vec3f = impl::vec<float, 3>;
 using vec4f = impl::vec<float, 4>;
 using triangle = std::array<vec3f, 3>;
+
+template<typename T, std::size_t N>
+[[nodiscard]] auto cross(impl::vec<T, N> const& v1, impl::vec<T, N> const& v2) -> impl::vec<T, N>
+{
+    impl::vec<T, N> result{ 0 };
+
+    constexpr int x = 0;
+    constexpr int y = 1;
+    constexpr int z = 2;
+
+    result[x] = v1[y] * v2[z] - v1[z] * v2[y];
+    result[y] = v1[z] * v2[x] - v1[x] * v2[z];
+    result[z] = v1[x] * v2[y] - v1[y] * v2[x];
+
+    return result;
+}
+
+template<typename T, std::size_t N>
+[[nodiscard]] auto dot(impl::vec<T, N> const& v1, impl::vec<T, N> const& v2) -> T
+{
+    T result{ 0 };
+
+    for(std::size_t i = 0; i < N; ++i) {
+        result += v1[i] * v2[i];
+    }
+
+    return result;
+}
 
 namespace operators {
 
