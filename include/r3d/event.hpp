@@ -10,6 +10,7 @@ enum class event_type
     key_released,
     mouse_button_pressed,
     mouse_button_released,
+    window_size_changed,
     none
 };
 
@@ -69,6 +70,10 @@ public:
     event(event&&) noexcept = default;
     ~event() noexcept = default;
 
+    explicit inline event(event_type type)
+        : m_type{ type }
+    {
+    }
     inline event(event_type type, key k)
         : m_type{ type }
         , m_key{ k }

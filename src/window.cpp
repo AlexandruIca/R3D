@@ -189,6 +189,8 @@ auto window::handle_events() -> void
                 m_height = ev.window.data2;
 
                 LOG("Window resized to {}x{}!", m_width, m_height);
+                event e{ event_type::window_size_changed };
+                m_event_handler(e);
 
                 break;
             }
