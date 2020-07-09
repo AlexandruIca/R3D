@@ -10,6 +10,7 @@
 #include <type_traits>
 
 #include "r3d/impl/assert.hpp"
+#include "r3d/matrix.hpp"
 
 namespace r3d {
 
@@ -121,7 +122,18 @@ public:
         ASSERT(static_cast<std::size_t>(index) < N);
         return m_data[static_cast<std::size_t>(index)];
     }
+    [[nodiscard]] auto operator[](int const index) const noexcept -> T const&
+    {
+        ASSERT(index >= 0);
+        ASSERT(static_cast<std::size_t>(index) < N);
+        return m_data[static_cast<std::size_t>(index)];
+    }
     [[nodiscard]] auto operator[](std::size_t const index) noexcept -> T&
+    {
+        ASSERT(index < N);
+        return m_data[index];
+    }
+    [[nodiscard]] auto operator[](std::size_t const index) const noexcept -> T const&
     {
         ASSERT(index < N);
         return m_data[index];
@@ -130,9 +142,14 @@ public:
 
 } // namespace impl
 
+using vec2i = impl::vec<int, 2>;
 using vec3f = impl::vec<float, 3>;
+using vec4f = impl::vec<float, 4>;
+using triangle = std::array<vec3f, 3>;
 
 namespace operators {
+
+[[nodiscard]] auto operator*(vec3f const& v, mat4f const& m) -> vec3f;
 
 template<typename T, std::size_t N>
 auto operator<<(std::ostream& os, impl::vec<T, N> const& v) -> std::ostream&
