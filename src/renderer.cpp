@@ -31,6 +31,14 @@ auto renderer::draw_point(int const x, int const y, color const c) -> void
     SDL_RenderDrawPoint(m_renderer.get(), x, y);
 }
 
+auto renderer::draw_triangle(vec2i const& a, vec2i const& b, vec2i const& c, color const& col) -> void
+{
+    SDL_SetRenderDrawColor(m_renderer.get(), col.r, col.g, col.b, col.a);
+    SDL_RenderDrawLine(m_renderer.get(), a[0], a[1], b[0], b[1]);
+    SDL_RenderDrawLine(m_renderer.get(), b[0], b[1], c[0], c[1]);
+    SDL_RenderDrawLine(m_renderer.get(), c[0], c[1], a[0], a[1]);
+}
+
 auto test() -> void
 {
     LOG("Hello {}!", "there");

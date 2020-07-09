@@ -7,6 +7,7 @@
 class SDL_Renderer;
 
 #include "r3d/color.hpp"
+#include "r3d/vec.hpp"
 #include "r3d/window.hpp"
 
 namespace r3d {
@@ -33,6 +34,7 @@ public:
     auto update() noexcept -> void;
 
     auto draw_point(int x, int y, color c) -> void;
+    auto draw_triangle(vec2i const& a, vec2i const& b, vec2i const& c, color const& col) -> void;
 };
 
 auto test() -> void;
