@@ -8,7 +8,7 @@
 #include "r3d/tick.hpp"
 #include "r3d/vec.hpp"
 
-TEST_CASE("[SimpleCube]")
+TEST_CASE("[SimpleShadedCube]")
 {
     using arr3f = std::array<float, 3>;
 
@@ -86,10 +86,12 @@ TEST_CASE("[SimpleCube]")
     });
 
     using namespace r3d::operators;
-    constexpr r3d::color white{ 255, 255, 255, 255 };
+    constexpr r3d::color black{ 0, 0, 0, 255 };
     constexpr float translate_offset = 3.0F;
 
     float rotation_angle{ 0.0F };
+
+    r3d::vec3f camera{ 0.0F };
 
     r3d::mat4f rot_z{ 0.0F };
     r3d::mat4f rot_x{ 0.0F };
@@ -138,22 +140,51 @@ TEST_CASE("[SimpleCube]")
             tri_translated[1][2] = tri_rot_x[1][2] + translate_offset;
             tri_translated[2][2] = tri_rot_x[2][2] + translate_offset;
 
-            projected[0] = tri_translated[0] * projection_matrix;
-            projected[1] = tri_translated[1] * projection_matrix;
-            projected[2] = tri_translated[2] * projection_matrix;
+            r3d::vec3f normal{ 0.0F };
+            r3d::vec3f line1{ 0.0F };
+            r3d::vec3f line2{ 0.0F };
 
-            for(std::size_t i = 0; i < 3; ++i) {
-                projected[i][0] += 1.0F;
-                projected[i][1] += 1.0F;
+            line1 = tri_translated[1] - tri_translated[0];
+            line2 = tri_translated[2] - tri_translated[0];
+            normal = r3d::cross(line1, line2);
+            normal.normalize();
 
-                projected[i][0] *= 0.5F * static_cast<float>(wnd.get_width());  // NOLINT
-                projected[i][1] *= 0.5F * static_cast<float>(wnd.get_height()); // NOLINT
+            // if(normal[2] < 0) {
+            if(r3d::dot(normal, tri_translated[0] - camera) < 0.0F) {
+                r3d::vec3f light_direction{ arr3f{ 0.0F, 0.0F, -1.0F } };
+                light_direction.normalize();
+
+                float const similarity = r3d::dot(normal, light_direction);
+                r3d::color const c{ static_cast<std::uint8_t>(similarity * 255.0F),
+                                    static_cast<std::uint8_t>(similarity * 255.0F),
+                                    static_cast<std::uint8_t>(similarity * 255.0F),
+                                    255 };
+
+                projected[0] = tri_translated[0] * projection_matrix;
+                projected[1] = tri_translated[1] * projection_matrix;
+                projected[2] = tri_translated[2] * projection_matrix;
+
+                for(std::size_t i = 0; i < 3; ++i) {
+                    projected[i][0] += 1.0F;
+                    projected[i][1] += 1.0F;
+
+                    projected[i][0] *= 0.5F * static_cast<float>(wnd.get_width());  // NOLINT
+                    projected[i][1] *= 0.5F * static_cast<float>(wnd.get_height()); // NOLINT
+                }
+
+                rnd.fill_triangle(
+                    r3d::vec2i{ { static_cast<int>(projected[0][0]), static_cast<int>(projected[0][1]) } },
+                    r3d::vec2i{ { static_cast<int>(projected[1][0]), static_cast<int>(projected[1][1]) } },
+                    r3d::vec2i{ { static_cast<int>(projected[2][0]), static_cast<int>(projected[2][1]) } },
+                    c,
+                    wnd);
+
+                rnd.draw_triangle(
+                    r3d::vec2i{ { static_cast<int>(projected[0][0]), static_cast<int>(projected[0][1]) } },
+                    r3d::vec2i{ { static_cast<int>(projected[1][0]), static_cast<int>(projected[1][1]) } },
+                    r3d::vec2i{ { static_cast<int>(projected[2][0]), static_cast<int>(projected[2][1]) } },
+                    black);
             }
-
-            rnd.draw_triangle(r3d::vec2i{ { static_cast<int>(projected[0][0]), static_cast<int>(projected[0][1]) } },
-                              r3d::vec2i{ { static_cast<int>(projected[1][0]), static_cast<int>(projected[1][1]) } },
-                              r3d::vec2i{ { static_cast<int>(projected[2][0]), static_cast<int>(projected[2][1]) } },
-                              white);
         }
 
         rnd.update();

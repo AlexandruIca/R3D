@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "r3d/renderer.hpp"
+#include "r3d/tick.hpp"
 #include "r3d/vec.hpp"
 
 TEST_CASE("[SimplePerspectiveCube]")
@@ -87,7 +88,6 @@ TEST_CASE("[SimplePerspectiveCube]")
     using namespace r3d::operators;
     constexpr r3d::color white{ 255, 255, 255, 255 };
     constexpr float translate_offset = 3.0F;
-    constexpr float rotation_offset = 0.01F;
 
     float rotation_angle{ 0.0F };
 
@@ -108,7 +108,7 @@ TEST_CASE("[SimplePerspectiveCube]")
         wnd.handle_events();
         rnd.clear();
 
-        rotation_angle += rotation_offset;
+        rotation_angle = static_cast<float>(r3d::get_ticks()) / 1000.0F; // NOLINT
 
         rot_z(0, 0) = std::cos(rotation_angle);
         rot_z(0, 1) = std::sin(rotation_angle);
