@@ -56,3 +56,14 @@ TEST_CASE("[vec4i] Index")
     REQUIRE(v[2] == 3);
     REQUIRE(v[3] == 4);
 }
+
+TEST_CASE("[vec3fxmat4f]")
+{
+    r3d::vec3f v{ 1 };
+    r3d::mat4f m{ 1 };
+
+    using namespace r3d::operators;
+    using arr3f = std::array<float, 3>;
+
+    REQUIRE(v * m == r3d::vec3f{ arr3f{ 1, 1, 1 } });
+}
