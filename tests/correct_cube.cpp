@@ -7,7 +7,7 @@
 #include "r3d/renderer.hpp"
 #include "r3d/vec.hpp"
 
-TEST_CASE("[SimpleCube]")
+TEST_CASE("[SimplePerspectiveCube]")
 {
     using arr3f = std::array<float, 3>;
 
