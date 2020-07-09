@@ -35,6 +35,8 @@ public:
 
     auto draw_point(int x, int y, color c) -> void;
     auto draw_triangle(vec2i const& a, vec2i const& b, vec2i const& c, color const& col) -> void;
+    auto fill_triangle(vec2i const& a, vec2i const& b, vec2i const& c, color const& col, r3d::window const& wnd)
+        -> void;
 };
 
 auto test() -> void;
